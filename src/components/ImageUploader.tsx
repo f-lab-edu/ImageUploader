@@ -1,7 +1,20 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
+import ImagePreview from "./ImagePreview";
 
-const ImageUploader = () => {
+const validateImage = (file: File): boolean => {
+  if (!file.type.startsWith("image/")) {
+    alert("이미지 파일만 업로드할 수 있습니다.");
+    return false;
+  }
+
+  return true;
+};
+type Props = {
+  onRegisterImage: (file: File) => void;
+};
+
+const ImageUploader = ({ onRegisterImage }: Props) => {
   const [image, setImage] = useState<File | null>(null);
 
   const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -12,7 +25,14 @@ const ImageUploader = () => {
       return;
     }
 
-    setImage(files[0]);
+    const file = files[0];
+
+    if (!validateImage(file)) {
+      setImage(null);
+      return;
+    }
+
+    setImage(file);
   };
 
   return (
@@ -20,9 +40,11 @@ const ImageUploader = () => {
       <input type="file" accept="image/*" onChange={onChangeImage} />
 
       {image && (
-        <div className="preview-img">
-          <img src={URL.createObjectURL(image)} alt="preview" />
-        </div>
+        <ImagePreview
+          previewUrl={URL.createObjectURL(image)}
+          image={image}
+          onRegisterImage={onRegisterImage}
+        />
       )}
     </>
   );
