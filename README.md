@@ -23,6 +23,12 @@ src/
  │
  ├── components/
  │     ├── Header.tsx
+ │     ├── ImageList.tsx
+ │     ├── ImagePreview.tsx
+ │     └──ImageUploader.tsx
+ │
+ ├── hooks/
+ │     └──useImageList.tsx    // 이미지 리스트 로직
  │
  └──
 ```
@@ -32,3 +38,10 @@ src/
 ```
 npm run dev
 ```
+
+## 앞으로 추가해야 할 작업
+
+- 이미지 삭제 버튼 추가
+- 드래그&드랍 기능 추가
+- 등록된 이미지 저장 기능 추가(로컬스토리지)
+- UI 정리
