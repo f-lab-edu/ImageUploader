@@ -1,73 +1,47 @@
-# React + TypeScript + Vite
+# Image Uploader
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 와 Typescript 를 사용하여 이미지를 업로드하고 업로드한 이미지를 리스트화 시키는 프로젝트입니다.
 
-Currently, two official plugins are available:
+## 주요기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. 이미지 업로드 + 미리보기
 
-## React Compiler
+- 이미지를 선택하면 미리보기 이미지가 나타납니다.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. 이미지 등록
 
-## Expanding the ESLint configuration
+- 이미지를 등록하면 하단에 리스트로 나열합니다.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 폴더구조
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+ ├── index.css
+ ├── main.tsx
+ ├── App.css
+ ├── App.tsx
+ │
+ ├── components/
+ │     ├── Header.tsx
+ │     ├── ImageList.tsx
+ │     ├── ImagePreview.tsx
+ │     └──ImageUploader.tsx
+ │
+ ├── hooks/
+ │     └──useImageList.tsx    // 이미지 리스트 로직
+ │
+ └──
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 실행방법
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+npm run dev
+```
+
+## 앞으로 추가해야 할 작업
+
+- 이미지 삭제 버튼 추가
+- 드래그&드랍 기능 추가
+- 등록된 이미지 저장 기능 추가(로컬스토리지)
+- UI 정리
