@@ -1,5 +1,5 @@
-import { useState } from "react";
-import type { ChangeEvent } from "react";
+import { useRef, useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import ImagePreview from "./ImagePreview";
 
 const validateImage = (file: File): boolean => {
@@ -10,12 +10,14 @@ const validateImage = (file: File): boolean => {
 
   return true;
 };
+
 type Props = {
   onRegisterImage: (file: File) => void;
 };
 
 const ImageUploader = ({ onRegisterImage }: Props) => {
   const [image, setImage] = useState<File | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -31,21 +33,41 @@ const ImageUploader = ({ onRegisterImage }: Props) => {
       setImage(null);
       return;
     }
-
     setImage(file);
+  };
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!image) return;
+
+    onRegisterImage(image);
+    setImage(null);
+
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
   };
 
   return (
     <>
-      <input type="file" accept="image/*" onChange={onChangeImage} />
-
-      {image && (
-        <ImagePreview
-          previewUrl={URL.createObjectURL(image)}
-          image={image}
-          onRegisterImage={onRegisterImage}
+      <form onSubmit={onSubmit}>
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          onChange={onChangeImage}
         />
-      )}
+
+        {image && (
+          <>
+            <ImagePreview image={image} />
+
+            <div className="preview-btn">
+              <button type="submit">등록</button>
+            </div>
+          </>
+        )}
+      </form>
     </>
   );
 };

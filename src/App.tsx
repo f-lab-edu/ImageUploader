@@ -9,9 +9,9 @@ function App() {
 
   return (
     <>
-      <Header></Header>
-      <ImageUploader onRegisterImage={registerImage}></ImageUploader>
-      <ImageList images={images}></ImageList>
+      <Header />
+      <ImageUploader onRegisterImage={registerImage} />
+      <ImageList images={images} />
     </>
   );
 }
